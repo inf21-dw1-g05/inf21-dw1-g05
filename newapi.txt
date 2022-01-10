@@ -1,0 +1,817 @@
+openapi: 3.0.0
+info:
+  title: API Musicas
+  description: Esta API tem como função descobrir as músicas de cada autor
+  contact:
+    name: Grupo05
+    email: grupo05@ismai.pt
+  version: 0.0.1
+servers:
+- url: http://localhost:8080
+  description: My localhost
+  variables: 
+    basePath:
+      default: /
+paths:
+  /Music:
+    get:
+      tags:
+      - MusicController
+      summary: All Musics
+      operationId: allMusics
+      responses:
+        "200":
+          description: Array of all Musics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Music'
+                x-content-type: application/json
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+      x-swagger-router-controller: MusicController
+    post:
+      tags:
+      - MusicController
+      summary: Create music
+      operationId: createMusic
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Music'
+            examples:
+              MusicExample01:
+                $ref: '#/components/examples/MusicExample01'
+              MusicExample02:
+                $ref: '#/components/examples/MusicExample02'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Music'
+            examples:
+              MusicExample01:
+                $ref: '#/components/examples/MusicExample01'
+              MusicExample02:
+                $ref: '#/components/examples/MusicExample02'
+      responses:
+        "200":
+          description: Create a Music
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Music'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Music'
+        "400":
+          description: Bad request
+      x-swagger-router-controller: MusicController
+  /Music/{id}:
+    get:
+      tags:
+      - MusicController
+      summary: Music with ID
+      operationId: MusicID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Retrieve Music id 1
+            value: 1
+          two:
+            summary: Retrieve Music id 2
+            value: 2
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Music'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Music'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: MusicController
+    put:
+      tags:
+      - MusicController
+      summary: Update Music
+      operationId: updateMusic
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Update Music id 1
+            value: 1
+          two:
+            summary: Update Music id 2
+            value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Music'
+            examples:
+              Example01:
+                $ref: '#/components/examples/MusicExample01'
+              Example02:
+                $ref: '#/components/examples/MusicExample02'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: Music PUT success
+                x-content-type: application/json
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: MusicController
+    delete:
+      tags:
+      - MusicController
+      summary: Delete Music
+      operationId: deleteMusic
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Delete Music id 1
+            value: 1
+          two:
+            summary: Delete Music id 2
+            value: 2
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: id not found
+      x-swagger-router-controller: MusicsController
+  
+  
+  /Albums/{id}/Music:
+    get:
+      tags:
+      - AlbumController
+      summary: Musics from a specific Album
+      operationId: musicsAlbumID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Retrieve Music id 1
+            value: 1
+          two:
+            summary: Retrieve Music id 2
+            value: 2
+      responses:
+        "200":
+          description: Array of musics from an album
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Album'
+                x-content-type: application/json
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+      x-swagger-router-controller: AlbumController
+  /Albums{id}:
+    put:
+      tags:
+      - AlbumsController
+      summary: Update Album
+      operationId: updateAlbum
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Update Album id 1
+            value: 1
+          two:
+            summary: Update Album id 2
+            value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Album'
+            examples:
+              AeroportoExample01:
+                $ref: '#/components/examples/AlbumExample01'
+              AeroportoExample02:
+                $ref: '#/components/examples/AlbumExample02'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: Album PUT success
+                x-content-type: application/json
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: AlbumsController
+    delete:
+      tags:
+      - AlbumsController
+      summary: Delete Album
+      operationId: deleteAlbum
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Delete Album id 1
+            value: 1
+          two:
+            summary: Delete Album id 2
+            value: 2
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: id not found
+      x-swagger-router-controller: AlbumsController
+
+  /Artist:
+    get:
+      tags:
+      - ArtistController
+      summary: Show Artists
+      operationId: showArtist
+      responses:
+        "200":
+          description: Array of all artists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Artist'
+                x-content-type: application/json
+            application/xml:
+                schema:
+                  $ref: '#/components/schemas/inline_response_200_2'
+        x-swagger-router-controller: ArtistController
+    post:
+      tags:
+      - ArtistController
+      summary: Create Artist
+      operationId: createArtist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Artist'
+            examples:
+              MusicExample01:
+                $ref: '#/components/examples/ArtistExample01'
+              MusicExample02:
+                $ref: '#/components/examples/ArtistExample02'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Artist'
+            examples:
+              MusicExample01:
+                $ref: '#/components/examples/ArtistExample01'
+              MusicExample02:
+                $ref: '#/components/examples/ArtistExample02'
+      responses:
+        "200":
+          description: Create a Artist 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artist'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Artist'
+        "400":
+          description: Bad request
+      x-swagger-router-controller: ArtistController
+  /Artists/{id}:
+    get:
+      tags:
+      - ArtistController
+      summary: Show Artist with ID
+      operationId: showArtistID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Retrieve Artist id 1
+            value: 1
+          two:
+            summary: Retrieve Artist id 2
+            value: 2
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artist'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Artist'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: ArtistsController
+    put:
+      tags:
+      - ArtistController
+      summary: Update Artist
+      operationId: updateArtist
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Update Artist id 1
+            value: 1
+          two:
+            summary: Update Artist id 2
+            value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Artist'
+            examples:
+              Example01:
+                $ref: '#/components/examples/ArtistExample01'
+              Example02:
+                $ref: '#/components/examples/ArtistExample02'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: Artist PUT success
+                x-content-type: application/json
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: ArtistController
+    delete:
+      tags:
+      - ArtistController
+      summary: Delete Artist
+      operationId: deleteArtist
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Delete Artist id 1
+            value: 1
+          two:
+            summary: Delete Artist id 2
+            value: 2
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: id not found
+      x-swagger-router-controller: ArtistController
+
+  /User:
+    get:
+      tags:
+      - UserController
+      summary: show Users
+      operationId: showUsers
+      responses:
+        "200":
+          description: show all users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                x-content-type: application/json
+            application/xml:
+                schema:
+                  $ref: '#/components/schemas/inline_response_200_3'
+        x-swagger-router-controller: UserController
+    post:
+      tags:
+      - UserController
+      summary: Create User
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            examples:
+              UserExample01:
+                $ref: '#/components/examples/UserExample01'
+              UserExample02:
+                $ref: '#/components/examples/UserExample02'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+            examples:
+              UserExample01:
+                $ref: '#/components/examples/UserExample01'
+              UserExample02:
+                $ref: '#/components/examples/UserExample02'
+      responses:
+        "200":
+          description: Create a User 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Bad request
+      x-swagger-router-controller: UserController
+  /Users/{id}:
+    get:
+      tags:
+      - UserController
+      summary: show Users with ID
+      operationId: showUsersID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Retrieve User id 1
+            value: 1
+          two:
+            summary: Retrieve User id 2
+            value: 2
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: UserController
+    put:
+      tags:
+      - UserController
+      summary: Update User
+      operationId: updateUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Update User id 1
+            value: 1
+          two:
+            summary: Update User id 2
+            value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            examples:
+              Example01:
+                $ref: '#/components/examples/UserExample01'
+              Example02:
+                $ref: '#/components/examples/UserExample02'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: User PUT success
+                x-content-type: application/json
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: UserController
+    delete:
+      tags:
+      - UserController
+      summary: Delete User
+      operationId: deleteUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Delete User id 1
+            value: 1
+          two:
+            summary: Delete User id 2
+            value: 2
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: id not found
+      x-swagger-router-controller: UserController
+            
+
+
+
+
+
+components:
+  schemas:
+    Album:
+      title: Album
+      required:
+      - artista
+      - namealbum
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        namealbum:
+          type: string
+        artista:
+          type: string
+      additionalProperties: false
+      example:
+        namealbum: "namealbum"
+        artista: "artista"
+    Music:
+      title: Music
+      required:
+      - artista
+      - namemusic
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        genero:
+          type: string
+        artista:
+          type: string
+        namemusic:
+          type: string
+        datadelancamento:
+          type: string
+        pais:
+          type: string
+        Album_id:
+          type: integer
+          format: int64
+      additionalProperties: false
+      example:
+        genero: "genero"
+        artista: "artista"
+        namemusic: "music"
+    Artist:
+        title: Artist
+        required:
+        - nameartist
+        - pais
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          nameartist:
+            type: string
+          pais:
+            type: string
+        additionalProperties: false
+        example:
+          nameartist: "nameartist"
+          pais: "pais"
+    User:
+        title: User
+        required:
+        - nameuser
+        - pais
+        - email
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          nameartist:
+            type: string
+          pais:
+            type: string
+          email:
+            type: string
+        additionalProperties: false
+        example:
+          nameuser: "nameuser"
+          pais: "pais"
+          email: "email"
+    inline_response_200:
+      type: object
+      properties:
+        Music:
+          type: array
+          items:
+            $ref: '#/components/schemas/Music'
+      xml:
+        name: Music
+    inline_response_200_1:
+      type: object
+      properties:
+        Album:
+          type: array
+          items:
+            $ref: '#/components/schemas/Album'
+      xml:
+        name: Albums
+    inline_response_200_2:
+      type: object
+      properties:
+        Artist:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artist'
+      xml:
+        name: Artists
+    inline_response_200_3:
+      type: object
+      properties:
+        User:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+      xml:
+        name: Users
+
+  examples:
+    AlbumExample01:
+      value:
+        id: 1
+        namealbum: "Yasmin Williams: Urban Driftwood"
+        artista: "Quinn"
+    AlbumExample02:
+      value:
+        id: 2
+        namealbum: "Magdalena Bay: Mercurial World"
+        artista: "Eric Torres"
+    MusicExample01:
+      value:
+        id: 1
+        genero: "POP"
+        artista: "testeArtista"
+        namemusic: "Cant Get You Out Of My Head"
+        datadelancamento: "06/07/2001"
+        pais: "USA"
+    MusicExample02:
+      value:
+        id: 2
+        genero: "Rock"
+        artista: "Queen"
+        namemusic: "Don't Stop Me Now"
+        datadelancamento: "01/08/2008"
+        pais: "UK"
+    ArtistExample01:
+      value:
+        id: 1
+        nameartist: "Matue"
+        pais: "Brasil"
+    ArtistExample02:
+      value:
+        id: 2
+        nameartist: "Teto"
+        pais: "Brasil"    
+    UserExample01:
+      value:
+        id: 1
+        nameartist: "Matue"
+        pais: "Brasil"
+        email: "teste01@gmail.com"
+    UserExample02:
+      value:
+        id: 2
+        nameartist: "Teto"
+        pais: "Brasil"    
+        email: "teste02@gmail.com"    
+        
+ 
