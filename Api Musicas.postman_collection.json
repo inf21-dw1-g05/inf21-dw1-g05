@@ -192,7 +192,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"id\":31,\"nomeartista\":\"Matuee\",\"pais\":\"Brassil\"}"
+							"raw": "{\"id\":1,\"nomeartista\":\"Matue\",\"pais\":\"Brasil\"}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/Artista",
@@ -336,7 +336,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"id\":31,\"genero\":\"POOP\",\"nomeartista\":\"testenomeartista\",\"nomeMusica\":\"Cant Get You Out Of My Head\",\"datadelancamento\":2000}"
+							"raw": "{\"id\":1,\"genero\":\"POP\",\"nomeartista\":\"testennomeartista\",\"nomeMusica\":\"Cant Get You Out Of My Head\",\"datadelancamento\":2000,\"album_id\":3}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/Musica",
@@ -393,7 +393,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"id\":1,\"genero\":\"POOP\",\"nomeartista\":\"testenomeartista\",\"nomeMusica\":\"Cant Get You Out Of My Head\",\"datadelancamento\":2000}"
+							"raw": "{\"id\":1,\"genero\":\"POP\",\"nomeartista\":\"testenomeartista\",\"nomeMusica\":\"Cant Get You Out Of My Head\",\"datadelancamento\":2000,\"album_id\":2}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/Musica/1",
@@ -451,7 +451,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/Albums/1/Musica",
+							"raw": "http://localhost:8080/Albums/2/Musica",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -459,7 +459,7 @@
 							"port": "8080",
 							"path": [
 								"Albums",
-								"1",
+								"2",
 								"Musica"
 							]
 						}
@@ -477,7 +477,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/Albums/2/Musica",
+							"raw": "http://localhost:8080/Albums/1/Musica",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -485,7 +485,7 @@
 							"port": "8080",
 							"path": [
 								"Albums",
-								"2",
+								"1",
 								"Musica"
 							]
 						}
